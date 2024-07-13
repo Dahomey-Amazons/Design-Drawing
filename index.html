@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myntra Design Drawing</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3f3f3;
+            font-family: Arial, sans-serif;
+        }
+    
+        .phone-container {
+            width: 375px;
+            height: 667px;
+            background-color: white;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+    
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+    
+        h1 {
+            color: #e91e63;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    
+        #drawingCanvas {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+    
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+    
+        #colorPicker, #penWidth, button {
+            margin-right: 5px;
+        }
+    
+        button {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    
+        #showRecommended {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="phone-screen">
+            <h1>Myntra Design Drawing</h1>
+            <canvas id="drawingCanvas"></canvas>
+            <div class="controls">
+                <input type="color" id="colorPicker" value="#000000">
+                <input type="range" id="penWidth" min="1" max="20" value="5">
+                <button id="eraser">Eraser</button>
+                <button id="clear">Clear</button>
+            </div>
+            <button id="showRecommended">Show Recommended Products</button>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        const colorPicker = document.getElementById('colorPicker');
+        const penWidth = document.getElementById('penWidth');
+        const eraser = document.getElementById('eraser');
+        const clear = document.getElementById('clear');
+        const showRecommended = document.getElementById('showRecommended');
+    
+        // Set canvas size
+        canvas.width = 335;
+        canvas.height = 400;
+    
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+    
+        function draw(e) {
+            if (!isDrawing) return;
+    
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+    
+            ctx.lineWidth = penWidth.value;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = colorPicker.value;
+    
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+    
+            [lastX, lastY] = [x, y];
+        }
+    
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+    
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false);
+    
+        eraser.addEventListener('click', () => {
+            colorPicker.value = '#ffffff';
+        });
+    
+        clear.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+    
+        showRecommended.addEventListener('click', () => {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+            const hasBlack = imageData.some((value, index) => index % 4 === 0 && value === 0 && imageData[index + 1] === 0 && imageData[index + 2] === 0);
+    
+            if (hasBlack) {
+                // Redirect to the second page with recommended products
+                window.location.href = 'recommend.html';
+            } else {
+                alert('Please draw clearly or be more specific.');
+            }
+        });
+    </script>
+</body>
+</html>

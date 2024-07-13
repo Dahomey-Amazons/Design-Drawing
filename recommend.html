@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myntra Recommended Products</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3f3f3;
+            font-family: Arial, sans-serif;
+        }
+
+        .phone-container {
+            width: 375px;
+            height: 667px;
+            background-color: white;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #e91e63;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 5px;
+        }
+
+        .product-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .product-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-info {
+            padding: 8px;
+            text-align: center;
+        }
+
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+
+        .product-price {
+            color: #e91e63;
+            font-size: 14px;
+        }
+
+        #backButton {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 15px;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Scrollbar styles */
+        .product-grid::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .product-grid::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .product-grid::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+
+        .product-grid::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="phone-screen">
+            <h1>Recommended Products</h1>
+            <div class="product-grid">
+                <div class="product-item">
+                    <img src="https://via.placeholder.com/150x200?text=Product+1" alt="Product 1">
+                    <div class="product-info">
+                        <div class="product-name">Product 1</div>
+                        <div class="product-price">₹999</div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <img src="https://via.placeholder.com/150x200?text=Product+2" alt="Product 2">
+                    <div class="product-info">
+                        <div class="product-name">Product 2</div>
+                        <div class="product-price">₹1,299</div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <img src="https://via.placeholder.com/150x200?text=Product+3" alt="Product 3">
+                    <div class="product-info">
+                        <div class="product-name">Product 3</div>
+                        <div class="product-price">₹799</div>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <img src="https://via.placeholder.com/150x200?text=Product+4" alt="Product 4">
+                    <div class="product-info">
+                        <div class="product-name">Product 4</div>
+                        <div class="product-price">₹1,499</div>
+                    </div>
+                </div>
+            </div>
+            <button id="backButton">Back to Drawing</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('backButton').addEventListener('click', () => {
+            window.location.href = 'index.html'; // Assuming the first page is named index.html
+        });
+    </script>
+</body>
+</html>
